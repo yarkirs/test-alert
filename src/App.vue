@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<main>
+ <b-container class="">
+   <div class="bg-primary">
+     <h1>Some testsxcxzc</h1>
+    <button class="btn btn-danger"> some text</button>
+   </div>
+
+  </b-container>
+</main>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+/* eslint-disable */
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {},
 }
 </script>
 
 <style lang="scss">
-#app {
+
+main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
   margin-top: 60px;
 }
 </style>
