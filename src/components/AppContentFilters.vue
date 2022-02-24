@@ -2,31 +2,19 @@
   <div>
     <form action="#">
       <b-row>
-        <b-col></b-col>
+        <b-col><the-filter title="Комнаты" type="checkbox" until="floor"></the-filter
+        ></b-col>
+        <b-col
+          ><the-filter title="Этаж" type="range" until="floor"></the-filter
+        ></b-col>
         <b-col>
-          <label for="range-1">Этаж</label>
-          <input type="number">
-          <b-form-input
-            id="range-1"
-            v-model="value"
-            type="range"
-            min="0"
-            max="100"
-          ></b-form-input>
-          <div class="mt-2">Value: {{ value }}</div>
-          </b-col
-        >
-        <b-col>
-        </b-col>
-        <b-col>
-        </b-col>
-        <b-col>
-            <the-filter
-                title="Этаж"
-                type="range"
-                until="floor"
-            ></the-filter>
-        </b-col>
+          <the-filter title="Площадь" type="range" until="floor"></the-filter
+        ></b-col>
+        <b-col
+          ><the-filter title="Цена" type="range" until="floor"></the-filter
+        ></b-col>
+        <b-col><button class="btn btn-primary">Применить</button>
+        <button class="btn mt-2">Сбросить изменения</button>  </b-col>
       </b-row>
     </form>
   </div>
@@ -34,7 +22,7 @@
 
 <script>
 /* eslint-disable */
-import TheFilter from './TheFilter.vue'
+import TheFilter from "./TheFilter.vue";
 export default {
   components: { TheFilter },
   data() {
@@ -46,6 +34,4 @@ export default {
 </script>
 
 <style lang="scss">
-
-
 </style>
