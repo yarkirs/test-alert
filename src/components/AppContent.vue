@@ -1,20 +1,54 @@
 <template>
-  <div>
-    <div class="main__container rounded">
+  <b-container class="bg-white mt-2 rounded border border-white" fluid="xl">
+    <div class="main__container p-5 rounded">
       <h1 class="text-center">
         <strong>Lorem ipsum dolor sit </strong>
       </h1>
       <app-content-filters></app-content-filters>
-      <div class="main__housing mt-2">
-        <b-row>
-          <b-col>
-            <app-content-card></app-content-card>
+      <div class="main__housing mt-5">
+        <b-row >
+          <b-col cols="4" xl="3" lg="4" md="6" sm="12"  class="mb-4" >
+            <app-content-card
+            :price="2720"
+            :number="256"
+            :rooms="1"
+            :square="22.32"
+            :floor="2"
+            pathImg="../assets/room.jpg"
+            ></app-content-card>
           </b-col>
+          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4">
+            <app-content-card
+            :price="2720"
+            :number="256"
+            :rooms="1"
+            :square="22.32"
+            :floor="2"
+            pathImg="../assets/room.jpg"
+            ></app-content-card>
+          </b-col>
+          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4"><app-content-card
+            :price="2720"
+            :number="256"
+            :rooms="1"
+            :square="22.32"
+            :floor="2"
+            pathImg="../assets/room.jpg"
+            ></app-content-card></b-col>
+          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4"><app-content-card
+            :price="2720"
+            :number="256"
+            :rooms="1"
+            :square="22.32"
+            :floor="2"
+            pathImg="../assets/room.jpg"
+            ></app-content-card></b-col>
 
         </b-row>
       </div>
     </div>
-  </div>
+  </b-container>
+
 </template>
 
 <script>
@@ -37,7 +71,7 @@ export default {
   }
   background-color: #f8f8f8;
   padding-top: 38px;
-  margin: 30px;
+  margin: 5px;
 }
 </style>
 

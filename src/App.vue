@@ -1,8 +1,6 @@
 <template>
 <div>
-  <b-container class="bg-white mt-2 rounded border border-white" fluid="lg">
-      <app-content></app-content>
-  </b-container>
+  <app-content></app-content>
 </div>
 </template>
 
