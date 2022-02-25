@@ -11,7 +11,7 @@
           type="range"
           min="0"
           max="1000"
-          step="1"
+          :step="setStep"
           value="0"
           v-model="minPrice"
           @change="setRangeSlider"
@@ -20,7 +20,7 @@
           type="range"
           min="0"
           max="1000"
-          step="1"
+          :step="setStep"
           value="1000"
           v-model="maxPrice"
           @change="setRangeSlider"
@@ -71,7 +71,7 @@ export default {
       default: null,
       required: false,
       validator(value) {
-        return ["floor", "area", "price", null].includes(value);
+        return ["floor", "square", "price", null].includes(value);
       },
     },
   },
@@ -90,12 +90,17 @@ export default {
       }
     },
   },
+  computed: {
+    setStep() {
+      return this.until === 'price' ? 0.1: 1
+    }
+  },
 };
 </script>
 
 <style lang="scss">
 .checkbox {
-  &-wrap{
+  &-wrap {
     display: flex;
   }
   & h3 {
@@ -113,6 +118,7 @@ export default {
     font-size: 16px;
     line-height: 28px;
     color: #2c323a;
+
     &:hover {
       color: #666;
     }
@@ -124,6 +130,7 @@ export default {
       height: 0;
       box-sizing: border-box;
       border-radius: 5px;
+
       &:checked + span {
         background: #70d24e;
         border: 1px solid white;
@@ -133,8 +140,11 @@ export default {
     & span {
       display: inline-block;
       cursor: pointer;
-      padding: 0px 10px;
+      padding: 5px 10px;
       line-height: 30px;
+      text-align: center;
+      // width: 47px;
+      // height: 40px;
       border: 1px solid #d8d8d8;
       border-radius: 5px;
       transition: background 0.2s ease;
@@ -143,7 +153,7 @@ export default {
 }
 
 .range {
- & h3 {
+  & h3 {
     font-size: 12px;
     font-weight: bold;
     color: #2c323a;

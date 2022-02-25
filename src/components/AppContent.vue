@@ -6,57 +6,49 @@
       </h1>
       <app-content-filters></app-content-filters>
       <div class="main__housing mt-5">
-        <b-row >
-          <b-col cols="4" xl="3" lg="4" md="6" sm="12"  class="mb-4" >
+        <b-row>
+          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4"
+          v-for="room in rooms" :key="room.building_id">
             <app-content-card
-            :price="2720"
-            :number="256"
-            :rooms="1"
-            :square="22.32"
-            :floor="2"
-            pathImg="../assets/room.jpg"
+              :price="room.price"
+              :number="room.number"
+              :rooms="room.rooms"
+              :square="room.square"
+              :floor="room.floor"
+              pathImg="../assets/room.jpg"
             ></app-content-card>
           </b-col>
-          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4">
-            <app-content-card
-            :price="2720"
-            :number="256"
-            :rooms="1"
-            :square="22.32"
-            :floor="2"
-            pathImg="../assets/room.jpg"
-            ></app-content-card>
-          </b-col>
-          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4"><app-content-card
-            :price="2720"
-            :number="256"
-            :rooms="1"
-            :square="22.32"
-            :floor="2"
-            pathImg="../assets/room.jpg"
-            ></app-content-card></b-col>
-          <b-col cols="4" xl="3" lg="4" md="6" sm="12" class="mb-4"><app-content-card
-            :price="2720"
-            :number="256"
-            :rooms="1"
-            :square="22.32"
-            :floor="2"
-            pathImg="../assets/room.jpg"
-            ></app-content-card></b-col>
-
         </b-row>
       </div>
     </div>
   </b-container>
-
 </template>
 
 <script>
 /* eslint-disable */
 import AppContentCard from './AppContentCard.vue';
 import AppContentFilters from "./AppContentFilters.vue";
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   components: { AppContentFilters, AppContentCard },
+  methods: {
+    ...mapActions([
+      'getData',
+    ])
+  },
+  computed: {
+    // ...mapGetters([
+    //   'getApartments',
+    // ])
+    rooms() {
+      let data = this.$store.getters.getApartments
+      return data
+    }
+  },
+  mounted() {
+    this.getData()
+  },
 };
 </script>
 

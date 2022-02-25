@@ -54,7 +54,7 @@ export default {
       required: true,
     },
     number: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

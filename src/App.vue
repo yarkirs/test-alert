@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import AppContent from './components/AppContent.vue'
 /* eslint-disable */
+import AppContent from './components/AppContent.vue'
 
 export default {
   name: 'App',
