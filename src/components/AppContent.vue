@@ -42,8 +42,7 @@ export default {
     //   'getApartments',
     // ])
     rooms() {
-      let data = this.$store.getters.getApartments
-      return data
+      return this.$store.getters.getApartments
     }
   },
   mounted() {

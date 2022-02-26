@@ -3,7 +3,7 @@
     <div class="card-info">
       <h5>{{ floor }} Этаж</h5>
       <span
-        ><strong>1 комната - {{ square }} м<sup>2</sup></strong></span
+        ><strong>{{ rooms === 1 ? rooms +' комната' : rooms + ' комнаты'}} - {{ square }} м<sup>2</sup></strong></span
       >
     </div>
     <div class="card-wrap card">

@@ -5,21 +5,27 @@
         <the-filter class="col" title="Комнаты" type="checkbox"></the-filter>
         <the-filter
           class="col"
-          title="Этаж"
+          title="Этаж;;"
           type="range"
           until="floor"
+          :maxValue="getValue('floor', 'max')"
+          :minValue="getValue('floor', 'min')"
         ></the-filter>
         <the-filter
           class="col"
           title="Площадь"
           type="range"
           until="square"
+          :maxValue="getValue('square', 'max')"
+          :minValue="getValue('square', 'min')"
         ></the-filter>
         <the-filter
           class="col"
           title="Цена"
           type="range"
           until="price"
+          :maxValue="getValue('price', 'max')"
+          :minValue="getValue('price', 'min')"
         ></the-filter>
         <div class="filters-btn col">
           <button class="btn-apply">Применить</button>
@@ -36,17 +42,49 @@
 /* eslint-disable */
 import TheFilter from "./TheFilter.vue";
 export default {
-  components: { TheFilter },
-  data() {
-    return {
-      value: "2",
-    };
+  methods: {
+    getValue(property, value) {
+      let data = this.$store.getters.getApartments;
+
+      if (typeof property != "string" || (value != "max" && value != "min")) {
+        console.log(
+          "🚀 ~ file: AppContentFilters.vue ~ line 50 ~ getValue ~ property or value",
+          property
+        );
+        console.log(
+          "🚀 ~ file: AppContentFilters.vue ~ line 55 ~ getValue ~ value",
+          value
+        );
+        console.log("Данные должны быть строками!");
+        return false;
+      }
+      let dataObj = [];
+      console.log("вызов метода");
+      for (let key in data) {
+        if (data[key][property] == false) return false;
+
+          switch (property) {
+            case 'price':
+              let roundPrice = data[key][property] / 1000000
+              dataObj.push(parseFloat(roundPrice.toFixed(1)));
+              break;
+            case 'square': dataObj.push(data[key][property].toFixed(0));
+            break;
+            case 'floor': dataObj.push(data[key][property]);
+              break;
+          }
+
+      }
+      return Math[value](...dataObj);
+    },
   },
+  computed: {},
+  components: { TheFilter },
 };
 </script>
 
 <style lang="scss" scoped>
-.filters-btn{
+.filters-btn {
   transform: translateY(23%);
 }
 .btn-apply {

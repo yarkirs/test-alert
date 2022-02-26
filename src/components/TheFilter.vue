@@ -9,19 +9,17 @@
       <div class="range-slider">
         <input
           type="range"
-          min="0"
-          max="1000"
+          :min="min"
+          :max="max"
           :step="setStep"
-          value="0"
           v-model="minPrice"
           @change="setRangeSlider"
         />
         <input
           type="range"
-          min="0"
-          max="1000"
+          :min="min"
+          :max="max"
           :step="setStep"
-          value="1000"
           v-model="maxPrice"
           @change="setRangeSlider"
         />
@@ -49,12 +47,23 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
 /* eslint-disable */
 export default {
   props: {
+    maxValue: {
+        type: Number,
+        default: 0,
+        required: false,
+      },
+      minValue: {
+        type: Number,
+        default: 0,
+        required: false,
+      },
     type: {
       type: String,
       required: true,
@@ -73,6 +82,7 @@ export default {
       validator(value) {
         return ["floor", "square", "price", null].includes(value);
       },
+
     },
   },
   data() {
@@ -80,6 +90,12 @@ export default {
       minPrice: 0,
       maxPrice: 1000,
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.minPrice= this.minValue
+    this.maxPrice = this.maxValue
+    }, 500);
   },
   methods: {
     setRangeSlider() {
@@ -91,8 +107,21 @@ export default {
     },
   },
   computed: {
+    max(){
+      return this.maxValue
+    },
+    min(){
+      return this.minValue
+    },
     setStep() {
-      return this.until === 'price' ? 0.1: 1
+      const until = this.until
+      switch (until) {
+        case 'price': return 0.1;
+        case 'floor': return 1;
+        case 'square': return 1.1;
+        default:
+          break;
+      }
     }
   },
 };

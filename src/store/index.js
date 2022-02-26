@@ -19,10 +19,10 @@ export default new Vuex.Store({
   actions: {
     getData({commit}) {
       return axios.get(FIREBASE_URL)
-        .then(apartments => {
-          commit('setApartmentsToState', apartments.data)
-          console.log('Данные получены!', apartments.data);
-          return apartments
+        .then(request => {
+          commit('setApartmentsToState', request.data)
+          console.log('Данные получены!', request.data);
+          return request
         })
         .catch(err =>{
           console.warn('Данные не получены =(', err)
