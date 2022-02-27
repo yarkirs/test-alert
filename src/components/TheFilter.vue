@@ -13,7 +13,7 @@
           :max="max"
           :step="setStep"
           v-model="minPrice"
-          @change="setRangeSlider"
+          @change="changeInput"
         />
         <input
           type="range"
@@ -21,7 +21,7 @@
           :max="max"
           :step="setStep"
           v-model="maxPrice"
-          @change="setRangeSlider"
+          @change="changeInput"
         />
       </div>
     </div>
@@ -29,20 +29,20 @@
       <h3>{{ title }}</h3>
       <div class="checkbox-wrap">
         <label class="checkbox-btn">
-          <input type="checkbox" checked />
+          <input type="checkbox" v-model="numRooms" @change="changeInput" value="XS"/>
           <span>XS</span>
         </label>
         <label class="checkbox-btn">
-          <input type="checkbox" />
-          <span>1k</span>
+          <input type="checkbox"  v-model="numRooms" @change="changeInput" value="1k"/>
+          <span>1К</span>
         </label>
         <label class="checkbox-btn">
-          <input type="checkbox" />
-          <span>2k</span>
+          <input type="checkbox"  v-model="numRooms" @change="changeInput" value="2k"/>
+          <span>2К</span>
         </label>
         <label class="checkbox-btn">
-          <input type="checkbox" />
-          <span>3k</span>
+          <input type="checkbox" v-model="numRooms" @change="changeInput" value="3k" />
+          <span>3К</span>
         </label>
       </div>
     </div>
@@ -75,7 +75,7 @@ export default {
       type: String,
       required: false,
     },
-    until: {
+    char: {
       type: String,
       default: null,
       required: false,
@@ -89,22 +89,35 @@ export default {
     return {
       minPrice: 0,
       maxPrice: 1000,
+      numRooms: ['XS','1k','2k','3k'],
     };
   },
   mounted() {
     setTimeout(() => {
       this.minPrice= this.minValue
-    this.maxPrice = this.maxValue
+      this.maxPrice = this.maxValue
     }, 500);
   },
   methods: {
-    setRangeSlider() {
-      if (this.minPrice > this.maxPrice) {
+    changeInput(){
+      if (this.type == 'range' && this.minPrice > this.maxPrice) {  // для замены ползунков в случае пересечения
         let tmp = this.maxPrice;
         this.maxPrice = this.minPrice;
         this.minPrice = tmp;
       }
+      switch (this.type) {
+        case 'range':
+          this.$emit('change-input', {type: this.char, maxPrice: this.maxPrice, minPrice: this.minPrice})
+          break;
+        case 'checkbox':
+          let rooms = this.numRooms
+          this.$emit('change-input', rooms )
+          break;
+        default:
+          break;
+      }
     },
+
   },
   computed: {
     max(){
@@ -114,8 +127,8 @@ export default {
       return this.minValue
     },
     setStep() {
-      const until = this.until
-      switch (until) {
+      const char = this.char
+      switch (char) {
         case 'price': return 0.1;
         case 'floor': return 1;
         case 'square': return 1.1;

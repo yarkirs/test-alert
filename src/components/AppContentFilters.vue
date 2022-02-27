@@ -2,35 +2,46 @@
   <div>
     <form action="#">
       <div class="filters-wrap row-cols-md-5 row">
-        <the-filter class="col" title="Комнаты" type="checkbox"></the-filter>
+        <the-filter class="col"
+        title="Комнаты"
+        type="checkbox"
+        @change-input="onChange">
+        </the-filter>
         <the-filter
           class="col"
-          title="Этаж;;"
+          title="Этаж"
           type="range"
-          until="floor"
+          char="floor"
           :maxValue="getValue('floor', 'max')"
           :minValue="getValue('floor', 'min')"
+          @change-input="onChange"
         ></the-filter>
         <the-filter
           class="col"
           title="Площадь"
           type="range"
-          until="square"
+          char="square"
           :maxValue="getValue('square', 'max')"
           :minValue="getValue('square', 'min')"
+          @change-input="onChange"
         ></the-filter>
         <the-filter
           class="col"
           title="Цена"
           type="range"
-          until="price"
+          char="price"
           :maxValue="getValue('price', 'max')"
           :minValue="getValue('price', 'min')"
+          @change-input="onChange"
         ></the-filter>
         <div class="filters-btn col">
-          <button class="btn-apply">Применить</button>
+          <button class="btn-apply"
+          @click.prevent="getSort"
+          >Применить</button>
           <div class="text-center">
-            <a href="#" class="link-reset">Сбросить фильтр</a>
+            <a href="#" class="link-reset"
+            @click.prevent="reset"
+            >Сбросить фильтр</a>
           </div>
         </div>
       </div>
@@ -42,31 +53,58 @@
 /* eslint-disable */
 import TheFilter from "./TheFilter.vue";
 export default {
+  data() {
+    return {
+      isReset: false,
+    }
+  },
+
   methods: {
+    onChange(value){
+      console.log('change input ', value)
+      const sortData = this.$store.state.sortedAparts;
+
+      if(Array.isArray(value)){
+        sortData.numRooms = [...new Set(value)]
+      } else {
+        switch (value.type) {
+        case 'square':
+        case 'floor':
+          sortData[value.type].max = +value.maxPrice
+          sortData[value.type].min = +value.minPrice
+          break;
+        case 'price':
+          sortData[value.type].max = parseFloat(value.maxPrice) * 1000000 // Потеря точности!
+          sortData[value.type].min = parseFloat(value.minPrice) * 1000000
+          break;
+        default:
+          break;
+      }
+      }
+    },
+    reset() {
+      this.$emit('get-reset')
+      this.isReset = !this.isReset
+    },
+    getSort(){
+      this.$emit('get-sorted')
+    },
     getValue(property, value) {
       let data = this.$store.getters.getApartments;
 
       if (typeof property != "string" || (value != "max" && value != "min")) {
-        console.log(
-          "🚀 ~ file: AppContentFilters.vue ~ line 50 ~ getValue ~ property or value",
-          property
-        );
-        console.log(
-          "🚀 ~ file: AppContentFilters.vue ~ line 55 ~ getValue ~ value",
-          value
-        );
-        console.log("Данные должны быть строками!");
+
+        console.log("Данные должны быть строками!", property, '------- ',value);
         return false;
       }
       let dataObj = [];
-      console.log("вызов метода");
       for (let key in data) {
         if (data[key][property] == false) return false;
 
           switch (property) {
             case 'price':
               let roundPrice = data[key][property] / 1000000
-              dataObj.push(parseFloat(roundPrice.toFixed(1)));
+              dataObj.push(parseFloat(roundPrice.toFixed(2)));
               break;
             case 'square': dataObj.push(data[key][property].toFixed(0));
             break;
