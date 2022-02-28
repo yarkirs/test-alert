@@ -55,89 +55,89 @@
 export default {
   props: {
     maxValue: {
-        type: Number,
-        default: 0,
-        required: false,
-      },
-      minValue: {
-        type: Number,
-        default: 0,
-        required: false,
-      },
+      type: Number,
+      default: 0,
+      required: false
+    },
+    minValue: {
+      type: Number,
+      default: 0,
+      required: false
+    },
     type: {
       type: String,
       required: true,
-      validator(value) {
-        return ["range", "checkbox"].includes(value);
-      },
+      validator (value) {
+        return ['range', 'checkbox'].includes(value)
+      }
     },
     title: {
       type: String,
-      required: false,
+      required: false
     },
     char: {
       type: String,
       default: null,
       required: false,
-      validator(value) {
-        return ["floor", "square", "price", null].includes(value);
-      },
+      validator (value) {
+        return ['floor', 'square', 'price', null].includes(value)
+      }
 
-    },
+    }
   },
-  data() {
+  data () {
     return {
       minPrice: 0,
       maxPrice: 1000,
-      numRooms: ['XS','1k','2k','3k'],
-    };
+      numRooms: ['XS', '1k', '2k', '3k']
+    }
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
-      this.minPrice= this.minValue
+      this.minPrice = this.minValue
       this.maxPrice = this.maxValue
-    }, 500);
+    }, 500)
   },
   methods: {
-    changeInput(){
-      if (this.type == 'range' && this.minPrice > this.maxPrice) {  // для замены ползунков в случае пересечения
-        let tmp = this.maxPrice;
-        this.maxPrice = this.minPrice;
-        this.minPrice = tmp;
+    changeInput () {
+      if (this.type === 'range' && this.minPrice > this.maxPrice) { // для замены ползунков в случае пересечения
+        const tmp = this.maxPrice
+        this.maxPrice = this.minPrice
+        this.minPrice = tmp
       }
       switch (this.type) {
         case 'range':
-          this.$emit('change-input', {type: this.char, maxPrice: this.maxPrice, minPrice: this.minPrice})
-          break;
+          this.$emit('change-input', { type: this.char, maxPrice: this.maxPrice, minPrice: this.minPrice })
+          break
         case 'checkbox':
-          let rooms = this.numRooms
-          this.$emit('change-input', rooms )
-          break;
+          const rooms = this.numRooms
+          this.$emit('change-input', rooms)
+          break
         default:
-          break;
+          break
       }
-    },
+    }
 
   },
   computed: {
-    max(){
+    max () {
       return this.maxValue
     },
-    min(){
+    min () {
       return this.minValue
     },
-    setStep() {
+    setStep () {
       const char = this.char
       switch (char) {
-        case 'price': return 0.1;
-        case 'floor': return 1;
-        case 'square': return 1.1;
+        case 'price': return 0.1
+        case 'floor': return 1
+        case 'square': return 1.1
         default:
-          break;
+          break
       }
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss">

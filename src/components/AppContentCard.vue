@@ -29,60 +29,56 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
-  data() {
-    return {
-    }
-  },
   props: {
     price: {
       type: Number,
-      required: true,
+      required: true
     },
     square: {
       type: Number,
-      required: true,
+      required: true
     },
     floor: {
       type: Number,
-      required: true,
+      required: true
     },
     pathImg: {
       type: String,
       required: false,
-      default: "",
+      default: ''
     },
     rooms: {
       type: Number,
-      required: true,
+      required: true
     },
     number: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    addSpace(number) {
-      number += "";
-      number = new Array(4 - (number.length % 3)).join("U") + number;
-      return number.replace(/([0-9U]{3})/g, "$1 ").replace(/U/g, "");
-    },
+    addSpace (number) {
+      number += ''
+      number = new Array(4 - (number.length % 3)).join('U') + number
+      return number.replace(/([0-9U]{3})/g, '$1 ').replace(/U/g, '')
+    }
   },
   computed: {
-    setPath(){
+    setPath () {
       return '../assets' + this.pathImg
     },
-    sqPrice() {
-      const NewPrice = Math.round(this.price / this.square);
-      return this.addSpace(NewPrice);
+    sqPrice () {
+      const NewPrice = Math.round(this.price / this.square)
+      return this.addSpace(NewPrice)
     },
 
-    newPrice() {
-      return this.addSpace(this.price);
-    },
-  },
-};
+    newPrice () {
+      return this.addSpace(this.price)
+    }
+  }
+}
 </script>
 <style lang="scss">
 .card {

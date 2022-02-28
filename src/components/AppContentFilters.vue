@@ -51,74 +51,72 @@
 
 <script>
 /* eslint-disable */
-import TheFilter from "./TheFilter.vue";
+import TheFilter from './TheFilter.vue'
 export default {
-  data() {
+  data () {
     return {
-      isReset: false,
+      isReset: false
     }
   },
 
   methods: {
-    onChange(value){
+    onChange (value) {
       console.log('change input ', value)
-      const sortData = this.$store.state.sortedAparts;
+      const sortData = this.$store.state.sortedAparts
 
-      if(Array.isArray(value)){
+      if (Array.isArray(value)) {
         sortData.numRooms = [...new Set(value)]
       } else {
         switch (value.type) {
-        case 'square':
-        case 'floor':
-          sortData[value.type].max = +value.maxPrice
-          sortData[value.type].min = +value.minPrice
-          break;
-        case 'price':
-          sortData[value.type].max = parseFloat(value.maxPrice) * 1000000 // Потеря точности!
-          sortData[value.type].min = parseFloat(value.minPrice) * 1000000
-          break;
-        default:
-          break;
-      }
+          case 'square':
+          case 'floor':
+            sortData[value.type].max = +value.maxPrice
+            sortData[value.type].min = +value.minPrice
+            break
+          case 'price':
+            sortData[value.type].max = parseFloat(value.maxPrice) * 1000000 // Потеря точности!
+            sortData[value.type].min = parseFloat(value.minPrice) * 1000000
+            break
+          default:
+            break
+        }
       }
     },
-    reset() {
+    reset () {
       this.$emit('get-reset')
       this.isReset = !this.isReset
     },
-    getSort(){
+    getSort () {
       this.$emit('get-sorted')
     },
-    getValue(property, value) {
-      let data = this.$store.getters.getApartments;
+    getValue (property, value) {
+      const data = this.$store.getters.getApartments
 
-      if (typeof property != "string" || (value != "max" && value != "min")) {
-
-        console.log("Данные должны быть строками!", property, '------- ',value);
-        return false;
+      if (typeof property !== 'string' || (value != 'max' && value != 'min')) {
+        console.log('Данные должны быть строками!', property, '------- ', value)
+        return false
       }
-      let dataObj = [];
-      for (let key in data) {
-        if (data[key][property] == false) return false;
+      const dataObj = []
+      for (const key in data) {
+        if (data[key][property] === false) return false
 
-          switch (property) {
-            case 'price':
-              let roundPrice = data[key][property] / 1000000
-              dataObj.push(parseFloat(roundPrice.toFixed(2)));
-              break;
-            case 'square': dataObj.push(data[key][property].toFixed(0));
-            break;
-            case 'floor': dataObj.push(data[key][property]);
-              break;
-          }
-
+        switch (property) {
+          case 'price':
+            const roundPrice = data[key][property] / 1000000
+            dataObj.push(parseFloat(roundPrice.toFixed(2)))
+            break
+          case 'square': dataObj.push(data[key][property].toFixed(0))
+            break
+          case 'floor': dataObj.push(data[key][property])
+            break
+        }
       }
-      return Math[value](...dataObj);
-    },
+      return Math[value](...dataObj)
+    }
   },
   computed: {},
-  components: { TheFilter },
-};
+  components: { TheFilter }
+}
 </script>
 
 <style lang="scss" scoped>

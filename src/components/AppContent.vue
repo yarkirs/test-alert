@@ -36,88 +36,84 @@
 
 <script>
 /* eslint-disable */
-// "/img/bb8d/9eeb90d9c7aeeed41fb41c0b5e383013.jpg"
-import AppContentCard from "./AppContentCard.vue";
-import AppContentFilters from "./AppContentFilters.vue";
-import { mapActions, mapGetters } from "vuex";
+import AppContentCard from './AppContentCard.vue'
+import AppContentFilters from './AppContentFilters.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: { AppContentFilters, AppContentCard },
-  data() {
+  data () {
     return {
       copyApart: {},
-      isSorted: false,
-    };
+      isSorted: false
+    }
   },
   methods: {
-    ...mapActions(["getData"]),
-    reset() {
-      const data = this.copyApart;
-      Object.assign(data, this.$store.getters.getApartments);
-      this.isSorted = !this.isSorted;
-      console.log('Reset');
+    ...mapActions(['getData']),
+    reset () {
+      const data = this.copyApart
+      Object.assign(data, this.$store.getters.getApartments)
+      this.isSorted = !this.isSorted
+      console.log('Reset')
     },
-    sorted() {
-      const sortData = this.$store.getters.getSortApart;
-      console.log("Sort!");
-      const data = this.copyApart;
-      Object.assign(data, this.$store.getters.getApartments);
+    sorted () {
+      const sortData = this.$store.getters.getSortApart
+      console.log('Sort!')
+      const data = this.copyApart
+      Object.assign(data, this.$store.getters.getApartments)
 
       const deletForSort = (property) => {
         switch (property) {
-          case "price":
-          case "floor":
-          case "square":
-            for (let key in data) {
-              data[key][property];
-              sortData[property];
+          case 'price':
+          case 'floor':
+          case 'square':
+            for (const key in data) {
+              data[key][property]
+              sortData[property]
               if (
                 data[key][property] <= sortData[property].max &&
                 data[key][property] >= sortData[property].min
               ) {
               } else {
-                delete data[key];
+                delete data[key]
               }
             }
-            break;
-          case "numRooms":
-            for(let key in data) {
-              let n = data[key].size
+            break
+          case 'numRooms':
+            for (const key in data) {
+              const n = data[key].size
 
-              if(!sortData[property].find(i => i === n)){
-                  delete data[key]
-                }
+              if (!sortData[property].find(i => i === n)) {
+                delete data[key]
+              }
             }
-            break;
+            break
           default:
-            break;
+            break
         }
-      };
-      deletForSort('price');
-      deletForSort('floor');
-      deletForSort('square');
-      deletForSort("numRooms");
+      }
+      deletForSort('price')
+      deletForSort('floor')
+      deletForSort('square')
+      deletForSort('numRooms')
 
-      this.isSorted = !this.isSorted;
-      return data;
-    },
+      this.isSorted = !this.isSorted
+      return data
+    }
   },
   watch: {
-    isSorted(value) {
-    },
+    isSorted (value) {
+    }
   },
   computed: {
-    // ...mapGetters([
-    //   'getApartments',
-    // ])
-    getRooms() {
-      return Object.assign(this.copyApart, this.$store.getters.getApartments);
-    },
+    getRooms () {
+      return Object.assign(this.copyApart, this.$store.getters.getApartments)
+    }
   },
-  mounted() {
-    this.getData();
-  },
-};
+  mounted () {
+    this.getData()
+  }
+}
 </script>
 
 <style lang="scss" >
@@ -152,4 +148,3 @@ export default {
   }
 }
 </style>
-
