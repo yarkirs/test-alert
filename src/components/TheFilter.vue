@@ -142,6 +142,7 @@ export default {
 
 <style lang="scss">
 .checkbox {
+  margin-bottom: 10px;
   &-wrap {
     display: flex;
   }
@@ -185,8 +186,8 @@ export default {
       padding: 5px 10px;
       line-height: 30px;
       text-align: center;
-      // width: 47px;
-      // height: 40px;
+      width: 45px;
+      height: 40px;
       border: 1px solid #d8d8d8;
       border-radius: 5px;
       transition: background 0.2s ease;
@@ -199,12 +200,12 @@ export default {
     font-size: 12px;
     font-weight: bold;
     color: #2c323a;
-    margin-left: 15px;
+    // margin-left: 15px;
     color: #2c323a;
   }
   &-values {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     & span {
       color: #2c323a;
       opacity: 0.5;
@@ -218,7 +219,7 @@ export default {
       border: 1px solid #d8d8d8;
       box-sizing: border-box;
       border-radius: 5px;
-      width: 80px;
+      width: 50%;
       height: 40px;
       text-align: center;
       font-size: 16px;
@@ -260,7 +261,7 @@ export default {
       width: 21px;
       background: #d8d8d8;
       border-radius: 15px;
-      margin-left: 123px;
+      margin-left: 72%;
       z-index: 2;
       transform: translateY(-100%);
     }
@@ -270,7 +271,7 @@ export default {
       left: 0;
       bottom: 0;
       margin: auto;
-      width: 80%;
+      width: 85%;
       appearance: none !important;
       &::-webkit-slider-runnable-track {
         height: 2px;
@@ -293,6 +294,12 @@ export default {
       position: relative;
       margin: -7px;
     }
+  }
+}
+
+@media (max-width: 769px) {
+  .checkbox-wrap, .range-slider, .range-values {
+    margin-top: 20px;
   }
 }
 </style>

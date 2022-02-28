@@ -1,14 +1,14 @@
 <template>
   <div>
     <form action="#">
-      <div class="filters-wrap row-cols-md-5 row">
-        <the-filter class="col"
+      <div class="filters-wrap row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row">
+        <the-filter class="col-lg-3 col-md-5 col-12 offset-lg-0 offset-md-1"
         title="Комнаты"
         type="checkbox"
         @change-input="onChange">
         </the-filter>
         <the-filter
-          class="col"
+          class="col-lg-3 col-md-5 col-12 offset-lg-0 offset-md-1"
           title="Этаж"
           type="range"
           char="floor"
@@ -17,8 +17,8 @@
           @change-input="onChange"
         ></the-filter>
         <the-filter
-          class="col"
-          title="Площадь"
+          class="col-lg-3 col-md-5 col-12 offset-lg-0 offset-md-1"
+          title="Площадь, м²"
           type="range"
           char="square"
           :maxValue="getValue('square', 'max')"
@@ -26,15 +26,15 @@
           @change-input="onChange"
         ></the-filter>
         <the-filter
-          class="col"
-          title="Цена"
+          class="col-lg-3 col-md-5 col-12 offset-lg-0 offset-md-1"
+          title="Стоимость, млн. р."
           type="range"
           char="price"
           :maxValue="getValue('price', 'max')"
           :minValue="getValue('price', 'min')"
           @change-input="onChange"
         ></the-filter>
-        <div class="filters-btn col">
+        <div class="filters-btn offset-xl-0 offset-lg-4 offset-md-3 col-lg-4 col-md-6">
           <button class="btn-apply"
           @click.prevent="getSort"
           >Применить</button>
@@ -148,7 +148,7 @@ export default {
 .link-reset {
   position: relative;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 13px;
   display: inline-block;
   color: #2c323a;
   line-height: 28px;
@@ -163,6 +163,7 @@ export default {
     background-color: #70d24e;
     content: "";
     transition: width 0.3s ease-out;
+    margin-top: -5px;
   }
   &:hover:after {
     width: 100%;

@@ -12,7 +12,10 @@
           <p class="text-center">№{{ number }}</p>
         </div>
       </div>
-      <img src="../assets/room.jpg" alt="room" />
+      <div class="card-wrap-img">
+        <!-- <img :src="setPath" alt="room" /> -->
+        <img src="../assets/img/bb8d/9eeb90d9c7aeeed41fb41c0b5e383013.jpg" alt="room" />
+      </div>
     </div>
     <div class="card-container">
       <div class="card-price text-right">
@@ -29,7 +32,8 @@
 /* eslint-disable */
 export default {
   data() {
-    return {};
+    return {
+    }
   },
   props: {
     price: {
@@ -47,7 +51,7 @@ export default {
     pathImg: {
       type: String,
       required: false,
-      default: "../assets/room.jpg",
+      default: "",
     },
     rooms: {
       type: Number,
@@ -66,6 +70,9 @@ export default {
     },
   },
   computed: {
+    setPath(){
+      return '../assets' + this.pathImg
+    },
     sqPrice() {
       const NewPrice = Math.round(this.price / this.square);
       return this.addSpace(NewPrice);
@@ -90,10 +97,15 @@ export default {
     color: white;
     width: 100%;
     border: none;
-    font-size: 14px;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    // font-size: 14px;
     font-weight: 700;
-    // margin-top: 10px;
-    padding: 10px;
+    // // margin-top: 10px;
+    // padding: 10px;
+            transition-duration: 0.5s;
+
     &:focus {
       outline: none;
     }
@@ -117,10 +129,15 @@ export default {
   }
   &-wrap {
     position: relative;
+    text-align: center;
     cursor: pointer;
-    & img {
-      width: 100%;
-      transition-duration: 0.5s;
+    &-img {
+      max-width: 230px;
+      max-height: 188px;
+      & img {
+        width: 100%;
+        transition-duration: 0.5s;
+        }
     //   padding-bottom: 31px;
     }
   }
@@ -154,14 +171,17 @@ export default {
       -webkit-transition: all 0.7s ease;
       transition: all 0.7s ease;
       .card-btn {
-        -webkit-transition: all 0.7s ease;
-        transition: all 0.7s ease;
+        display: block;
         visibility: visible;
+        // -webkit-transition: all 0.7s ease;
+        // transition: all 0.7s ease;
+        font-size: 14px;
+      margin-top: 10px;
+      padding: 10px;
+
       }
-      img {
-        transition: all 0.7s ease;
-        -webkit-transform: scale(0.7);
-        transform: scale(0.7);
+      .card-wrap-img img {
+        width: 80%;
         // padding-bottom: 0;
       }
     }
@@ -181,14 +201,18 @@ export default {
       opacity: 0.5;
     }
   }
-  &-container {
-    padding-bottom: 10px;
-  }
 }
 @media (max-width: 1201px) {
   .card {
-      &-rooms{
-        //   min-height: auto;
+    &-rooms{&:hover{
+      .card-btn { margin-top: 0;}
+      .card-wrap-img img {width: 100%;}}}
+      &-btn {
+        visibility: visible;
+        font-size: 14px;
+        padding: 10px;
+        margin-top: 0;
+
       }
     &-info {
       flex-wrap: wrap;
